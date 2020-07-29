@@ -20,7 +20,7 @@ type Pooler interface {
 
 	Len() int
 	IdleLen() int
-	Stats() *Stats
+	GetStats() *Stats
 
 	Close() error
 }
@@ -90,8 +90,6 @@ type ClientPool struct {
 }
 
 var _ Pooler = (*ClientPool)(nil)
-
-var DefaultPool Pooler
 
 func NewClientPool(opt *Options) *ClientPool {
 	opt.init()
@@ -469,7 +467,7 @@ func (p *ClientPool) IdleLen() int {
 	return n
 }
 
-func (p *ClientPool) Stats() *Stats {
+func (p *ClientPool) GetStats() *Stats {
 	idleLen := p.IdleLen()
 	return &Stats{
 		Hits:     atomic.LoadUint32(&p.stats.Hits),
