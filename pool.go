@@ -91,7 +91,7 @@ type ClientPool struct {
 
 var _ Pooler = (*ClientPool)(nil)
 
-var HttpClientPool Pooler
+var DefaultPool Pooler
 
 func NewClientPool(opt *Options) *ClientPool {
 	opt.init()
